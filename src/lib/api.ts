@@ -22,8 +22,15 @@ export async function getCars(
     url += `&_sort=${sortBy}&_order=${order}`;
   }
 
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url, {
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   if (!response.ok) {
+    console.error(`API error: ${response.status}`);
     throw new Error("Failed to fetch cars");
   }
 
